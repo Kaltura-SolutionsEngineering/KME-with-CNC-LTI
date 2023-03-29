@@ -1,0 +1,53 @@
+{
+  "name": "embed-cnc",
+  "private": true,
+  "version": "0.0.0",
+  "main": "lib/server.ts",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "test": "echo 17dfg ",
+    "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec refresh",
+    "build": "tsc",
+    "start2": "npm run build && node build/server.js",
+    "start": "ts-node lib/server.ts"
+  },
+  "dependencies": {
+    "@koa/router": "^12.0.0",
+    "convict": "^6.2.4",
+    "dotenv": "^16.0.3",
+    "kaltura-client": "^19.3.0",
+    "@types/koa-router": "^7.4.4",
+    "jsonwebtoken": "^9.0.0",
+    "koa": "^2.14.1",
+    "koa-bodyparser": "^4.4.0",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "koa-logger": "^3.2.1",
+    "@types/koa": "^2.13.6",
+    "@types/jsonwebtoken": "^9.0.1",
+    "koa-static": "^1.5.3",
+    "@types/koa-static": "^4.0.2",
+    "@types/koa-static-server": "^1.5.0",
+    "express": "^4.18.2",
+    "kaltura-typescript-client": "^6.0.0"
+
+  },
+  "devDependencies": {
+    "@types/convict": "^6.1.1",
+    "@types/koa": "^2.13.5",
+    "@types/koa__router": "^12.0.0",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-logger": "^3.1.2",
+    "@types/koa-router": "^7.4.4",
+    "@types/node": "^18.14.6",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
+  }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      type="text/javascript"
+      src="https://cdnapisec.kaltura.com/p/5212842/embedPlaykitJs/uiconf_id/52169932"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnapisec.kaltura.com/p/5212842/embedPlaykitJs/uiconf_id/52225492"
+    ></script>
+
+    <style>
+      .kep-linkify-message {
+        font-family: cursive;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script defer>
+      function loadCnc(options, users) {
+ 
+        const floaterConfig = {
+          consent: {
+            legalTextUrls: {
+              en: "https://cfvod.kaltura.com/p/5245342/sp/524534200/raw/entry_id/1_n9dd1qjd/version/100001",
+            },
+            defaultSettings: {
+              receiveNotifications: true,
+              showFullName: true,
+              allowChatAndCollaboration: true,
+            },
+            cookieConsent: true,
+          },
+          server: {
+            jwtToken: options.jwt,
+            serviceUrl: "https://chat.nvp1.ovp.kaltura.com/api_v3",
+          },
+          theme: {
+            Common: {
+              FontFamily: "cursive",
+            },
+          },
+          ui: {
+            toastTimeout: "5000",
+            toastPlayerUiconf: +options.toastPlayerUiconf,
+            zIndex: 999,
+            position: {
+              right: "24px",
+            },
+            locale: "en",
+            groupChat: {
+              enabled: true,
+              mode: "groupChat",
+              reactions: true,
+              reply: true,
+            },
+            instanceOptions: {
+              enableChat: true,
+              enableSearch: true,
+            },
+          },
+          helpLink: "/help",
+          moderation: {
+            moderatorUrl: `https://${options.partnerId}.mediaspace.kaltura.com/user/authenticate/ks/${options.ks}`,
+            ui: {
+              label: "",
+              thumbnailUrl: `https://cfvod.kaltura.com/p/${options.partnerId}/thumbnail/${options.entryid}/1_2qbnfp3s/width/36/height/36/type/3`,
+              message: "keynote",
+              name: "Keynote 2023",
+              ctaButton: {
+                type: "chatWithExpert",
+                label: "",
+              },
+            },
+          },
+          reactions: {
+            mode: "on",
+            sourceUrl:
+              "https://cdnapisec.kaltura.com/p/5245342/embedPlaykitJs/uiconf_id/49313102",
+            endpointUrl: "https://analytics.kaltura.com",
+            ks: users.userEpKs,
+          },
+        };
+
+        function initiateFloater() {
+          floater =
+            KalturaEventsPlatform.collaboration.widgets.floater.new(
+              floaterConfig
+            );
+          floater.render();
+        }
+        initiateFloater();
+      }
+      
+    function loadKME(kmeDataInput) {
+        var form = document.getElementById("my-form");
+        for (var key in kmeDataInput.kmeRoomLti[0]) {
+          console.log(key + ": " + kmeDataInput.kmeRoomLti[0][key]);
+          var input = document.createElement("input"); // Create a new input element
+          input.type = "hidden"; // Set the type attribute to "text"
+          input.name = key; // Set the name attribute to the current input name
+          input.value = kmeDataInput.kmeRoomLti[0][key]; // Set the value attribute to the current input value
+
+          form.appendChild(input); // Add the input element to the form
+        }
+      
+
+        var input1 = document.createElement("input"); // Create a new input element
+        input1.type = "hidden"; // Set the type attribute to "text"
+        input1.name = "oauth_signature"; // Set the name attribute to the current input name
+        input1.value = kmeDataInput.kmeRoomLti[1]; // Set the value attribute to the current input value
+        form.appendChild(input1); // Add the input element to the form
+
+        form.style.display = "none";
+        form.submit();
+
+      }
+
+      async function initData() {
+      
+        const queryString = window.location.search;
+        console.log(queryString);
+        const urlParams = new URLSearchParams(queryString);
+        const user = urlParams.get("user");
+     
+
+        var data = await fetch(
+          window.location.origin + "/embed-cnc/init-data?user=" + user
+        );
+        var userEpKs = await fetch(
+          window.location.origin + "/embed-cnc/get-user?user=" + user
+        );
+        var kmeData = await fetch(
+          window.location.origin + "/embed-cnc/get-kme?user=" + user
+        );
+        cncConfig = await data.json();
+        epKs = await userEpKs.json();
+        kmeDataInput = await kmeData.json();
+
+
+
+        await loadCnc(cncConfig, epKs);
+        await loadKME(kmeDataInput);
+      }
+      initData();
+    </script>
+
+    <html>
+      <body>
+        <iframe
+          name="my_iframe"
+          wmode="transparent"
+          allow="microphone *; camera *; speakers *; usermedia *; autoplay *; fullscreen *; display-capture *;"
+          width="1100px"
+          height="700px"
+        ></iframe>
+        <form
+          id="my-form"
+          target="my_iframe"
+          name="ltiLaunchForm"
+          method="POST"
+          action="https://smart.newrow.com/backend/lti/course"
+        ></form>
+
+      </body>
+    </html>
+  </body>
+</html>

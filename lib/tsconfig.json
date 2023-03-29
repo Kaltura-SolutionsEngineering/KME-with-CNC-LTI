@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "esModuleInterop": true, 
+      "noImplicitAny": true,
+      "outDir": "build",
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "moduleResolution": "node", 
+      "module": "CommonJS",    
+      "skipLibCheck": true ,
+      "types": ["node"],
+      "target": "es2017",
+      "noImplicitAny": false
+    },
+    "include": [
+      "typings/main.d.ts",
+        "lib/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
